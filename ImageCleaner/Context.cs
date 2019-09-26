@@ -20,7 +20,8 @@ namespace ImageCleaner
         public DbSet<Blog> Blogs { get; set; }
 
         public DbSet<Event> Events { get; set; }
-        
+        public DbSet<News> News { get; set; }
+
         public DbSet<Candidate> Candidates { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

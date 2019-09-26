@@ -12,16 +12,16 @@ namespace ImageCleaner
             
             using (var context = new Context())
             {
-                var blogImgs = string.Join(' ', context.Blogs.Select(p => p.Content));
-                var eventImgs = string.Join(' ', context.Events.Select(p => p.Details));
-                var eventCovers = string.Join(' ', context.Events.Select(p => p.Cover));
+                var blogImgs = string.Join(' ', context.Blogs.Select(p => p.EnglishContent), context.Blogs.Select(p => p.EnglishCover), context.Blogs.Select(p => p.ChineseContent), context.Blogs.Select(p => p.ChineseCover));
+                var eventImgs = string.Join(' ', context.Events.Select(p => p.EnglishDetails), context.Events.Select(p => p.EnglishCover), context.Events.Select(p => p.ChineseDetails), context.Events.Select(p => p.ChineseCover));
+                var newsImgs = string.Join(' ', context.News.Select(p => p.EnglishCover), context.News.Select(p => p.ChineseCover));
                 var CandidateLogo = string.Join(' ', context.Candidates.Select(p => p.Logo));
                 foreach (var file in files)
                 {
                     var img = file.Split('\\').Reverse().ToArray()[0];
                     if (blogImgs.Contains(img)) continue;
                     if (eventImgs.Contains(img)) continue;
-                    if (eventCovers.Contains(img)) continue;
+                    if (newsImgs.Contains(img)) continue;
                     if (CandidateLogo.Contains(img)) continue;
                     File.Delete(file);
                     Console.WriteLine($"已删除{img}");
